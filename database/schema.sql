@@ -3,21 +3,34 @@
 -- PostgreSQL Operational Database Schema
 -- ============================================================
 
+
 -- ============================================================
--- 1. CUSTOMERS
+-- 1. DESTINATIONS
+-- ============================================================
+
+CREATE TABLE destinations (
+    destination_id SERIAL PRIMARY KEY,
+    destination_name VARCHAR(150) NOT NULL,
+    location VARCHAR(150),
+    region VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ============================================================
+-- 2. CUSTOMERS
 -- ============================================================
 
 CREATE TABLE customers (
     customer_id SERIAL PRIMARY KEY,
     customer_name VARCHAR(150) NOT NULL,
     customer_type VARCHAR(50),
-    destination_id INTEGER,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 
 -- ============================================================
--- 2. PRODUCTS
+-- 3. PRODUCTS
 -- ============================================================
 
 CREATE TABLE products (
@@ -30,7 +43,7 @@ CREATE TABLE products (
 
 
 -- ============================================================
--- 3. VEHICLES
+-- 4. VEHICLES
 -- ============================================================
 
 CREATE TABLE vehicles (
@@ -44,7 +57,7 @@ CREATE TABLE vehicles (
 
 
 -- ============================================================
--- 4. DRIVERS
+-- 5. DRIVERS
 -- ============================================================
 
 CREATE TABLE drivers (
@@ -57,7 +70,7 @@ CREATE TABLE drivers (
 
 
 -- ============================================================
--- 5. WAREHOUSES
+-- 6. WAREHOUSES
 -- ============================================================
 
 CREATE TABLE warehouses (
@@ -65,19 +78,6 @@ CREATE TABLE warehouses (
     warehouse_name VARCHAR(150) NOT NULL,
     location VARCHAR(150),
     status VARCHAR(30) DEFAULT 'Active',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-
--- ============================================================
--- 6. DESTINATIONS
--- ============================================================
-
-CREATE TABLE destinations (
-    destination_id SERIAL PRIMARY KEY,
-    destination_name VARCHAR(150) NOT NULL,
-    location VARCHAR(150),
-    region VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -135,6 +135,11 @@ CREATE TABLE loads (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+
+    -- --------------------------------------------------------
+    -- Foreign Key Relationships
+    -- --------------------------------------------------------
+
     CONSTRAINT fk_load_customer
         FOREIGN KEY (customer_id)
         REFERENCES customers(customer_id),
@@ -163,11 +168,22 @@ CREATE TABLE loads (
         FOREIGN KEY (cancellation_reason_id)
         REFERENCES cancellation_reasons(cancellation_reason_id),
 
+
+    -- --------------------------------------------------------
+    -- Data Integrity Rules
+    -- --------------------------------------------------------
+
     CONSTRAINT chk_loading_time
         CHECK (
             loading_end_datetime IS NULL
             OR loading_start_datetime IS NULL
             OR loading_end_datetime >= loading_start_datetime
+        ),
+
+    CONSTRAINT chk_cancellation_reason
+        CHECK (
+            status <> 'Cancelled'
+            OR cancellation_reason_id IS NOT NULL
         )
 );
 
@@ -186,6 +202,11 @@ CREATE TABLE load_items (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+
+    -- --------------------------------------------------------
+    -- Foreign Key Relationships
+    -- --------------------------------------------------------
+
     CONSTRAINT fk_load_item_load
         FOREIGN KEY (load_id)
         REFERENCES loads(load_id)
@@ -194,6 +215,11 @@ CREATE TABLE load_items (
     CONSTRAINT fk_load_item_product
         FOREIGN KEY (product_id)
         REFERENCES products(product_id),
+
+
+    -- --------------------------------------------------------
+    -- Data Integrity Rules
+    -- --------------------------------------------------------
 
     CONSTRAINT chk_positive_quantity
         CHECK (quantity > 0)
@@ -215,6 +241,11 @@ CREATE TABLE deliveries (
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
+
+    -- --------------------------------------------------------
+    -- Foreign Key Relationship
+    -- --------------------------------------------------------
+
     CONSTRAINT fk_delivery_load
         FOREIGN KEY (load_id)
         REFERENCES loads(load_id)
@@ -223,10 +254,5 @@ CREATE TABLE deliveries (
 
 
 -- ============================================================
--- 12. CUSTOMER → DESTINATION RELATIONSHIP
+-- END OF LOGIFLOW OPERATIONAL DATABASE SCHEMA
 -- ============================================================
-
-ALTER TABLE customers
-ADD CONSTRAINT fk_customer_destination
-FOREIGN KEY (destination_id)
-REFERENCES destinations(destination_id);
