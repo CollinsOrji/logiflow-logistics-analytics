@@ -363,21 +363,23 @@ Dashboard screenshots can be added to the repository under `docs/images/`.
 
 Once the images have been saved, the following Markdown can be used to display them directly on GitHub.
 
-#### Executive Overview
+### Dashboard Screenshots
 
-![LogiFlow Executive Overview](docs/images/01-executive-overview.PNG)
+#### 1. Executive Overview
 
-#### Delivery and Cancellation Analysis
+![Executive Overview](docs/Images/01-executive-overview.PNG)
 
-![LogiFlow Delivery and Cancellation Analysis](docs/images/02-delivery-cancellation-analysis.PNG)
+#### 2. Delivery and Cancellation Analysis
 
-#### Warehouse and Fleet Performance
+![Delivery and Cancellation Analysis](docs/Images/02-delivery-cancellation-analysis.PNG)
 
-![LogiFlow Warehouse and Fleet Performance](docs/images/03-warehouse-fleet-performance.PNG)
+#### 3. Warehouse and Fleet Performance
 
-#### Customer Performance
+![Warehouse and Fleet Performance](docs/Images/03-warehouse-fleet-performance.PNG)
 
-![LogiFlow Customer Performance](docs/images/04-customer-performance.PNG)
+#### 4. Customer Performance
+
+![Customer Performance](docs/Images/04-customer-performance.PNG)
 
 ---
 

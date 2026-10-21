@@ -1,14 +1,22 @@
-
-# Local Python environment
+# Python virtual environments
 .venv/
 venv/
+env/
+
+# Python cache files
 __pycache__/
 *.py[cod]
-.env
-.env.*
-!.env.example
 
-# Generated dbt files
+# dbt generated files
 logiflow_dbt/target/
 logiflow_dbt/logs/
 logiflow_dbt/dbt_packages/
+
+# Generated logs
+logs/
+*.log
+
+# Local secrets
+.env
+.env.*
+!.env.example
