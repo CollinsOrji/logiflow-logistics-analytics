@@ -359,12 +359,6 @@ The Power BI report complements the dbt project: dbt prepares reusable analytica
 
 ### Dashboard Screenshots
 
-Dashboard screenshots can be added to the repository under `docs/images/`.
-
-Once the images have been saved, the following Markdown can be used to display them directly on GitHub.
-
-### Dashboard Screenshots
-
 #### 1. Executive Overview
 
 ![Executive Overview](docs/Images/01-executive-overview.PNG)
