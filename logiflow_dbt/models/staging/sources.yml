@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: logiflow
+    schema: public
+    tables:
+      - name: destinations
+      - name: customers
+      - name: products
+      - name: vehicles
+      - name: drivers
+      - name: warehouses
+      - name: loading_officers
+      - name: cancellation_reasons
+      - name: loads
+      - name: load_items
+      - name: deliveries

@@ -1,0 +1,51 @@
+product_id,product_name,product_category,unit_of_measure,created_at
+1,Food Product 001,Food,Cases,2026-10-05 16:14:47.878350
+2,Personal Care Product 002,Personal Care,Pallets,2026-10-05 16:14:47.878350
+3,Home Care Product 003,Home Care,Pallets,2026-10-05 16:14:47.878350
+4,Home Care Product 004,Home Care,Cartons,2026-10-05 16:14:47.878350
+5,Food Product 005,Food,Cases,2026-10-05 16:14:47.878350
+6,Home Care Product 006,Home Care,Cases,2026-10-05 16:14:47.878350
+7,Beverages Product 007,Beverages,Cases,2026-10-05 16:14:47.878350
+8,Food Product 008,Food,Pallets,2026-10-05 16:14:47.878350
+9,Food Product 009,Food,Pallets,2026-10-05 16:14:47.878350
+10,Home Care Product 010,Home Care,Pallets,2026-10-05 16:14:47.878350
+11,Beverages Product 011,Beverages,Cartons,2026-10-05 16:14:47.878350
+12,Home Care Product 012,Home Care,Pallets,2026-10-05 16:14:47.878350
+13,Home Care Product 013,Home Care,Pallets,2026-10-05 16:14:47.878350
+14,Personal Care Product 014,Personal Care,Pallets,2026-10-05 16:14:47.878350
+15,Beverages Product 015,Beverages,Pallets,2026-10-05 16:14:47.878350
+16,Beverages Product 016,Beverages,Pallets,2026-10-05 16:14:47.878350
+17,Personal Care Product 017,Personal Care,Pallets,2026-10-05 16:14:47.878350
+18,Personal Care Product 018,Personal Care,Cases,2026-10-05 16:14:47.878350
+19,Personal Care Product 019,Personal Care,Cartons,2026-10-05 16:14:47.878350
+20,Food Product 020,Food,Cartons,2026-10-05 16:14:47.878350
+21,Beverages Product 021,Beverages,Pallets,2026-10-05 16:14:47.878350
+22,Personal Care Product 022,Personal Care,Pallets,2026-10-05 16:14:47.878350
+23,Food Product 023,Food,Pallets,2026-10-05 16:14:47.878350
+24,Beverages Product 024,Beverages,Pallets,2026-10-05 16:14:47.878350
+25,Personal Care Product 025,Personal Care,Pallets,2026-10-05 16:14:47.878350
+26,Food Product 026,Food,Cases,2026-10-05 16:14:47.878350
+27,Personal Care Product 027,Personal Care,Cases,2026-10-05 16:14:47.878350
+28,Beverages Product 028,Beverages,Pallets,2026-10-05 16:14:47.878350
+29,Personal Care Product 029,Personal Care,Cartons,2026-10-05 16:14:47.878350
+30,Beverages Product 030,Beverages,Cases,2026-10-05 16:14:47.878350
+31,Personal Care Product 031,Personal Care,Cartons,2026-10-05 16:14:47.878350
+32,Food Product 032,Food,Cases,2026-10-05 16:14:47.878350
+33,Food Product 033,Food,Pallets,2026-10-05 16:14:47.878350
+34,Beverages Product 034,Beverages,Cases,2026-10-05 16:14:47.878350
+35,Home Care Product 035,Home Care,Cases,2026-10-05 16:14:47.878350
+36,Food Product 036,Food,Cases,2026-10-05 16:14:47.878350
+37,Home Care Product 037,Home Care,Pallets,2026-10-05 16:14:47.878350
+38,Food Product 038,Food,Cartons,2026-10-05 16:14:47.878350
+39,Home Care Product 039,Home Care,Cases,2026-10-05 16:14:47.878350
+40,Food Product 040,Food,Pallets,2026-10-05 16:14:47.878350
+41,Personal Care Product 041,Personal Care,Cartons,2026-10-05 16:14:47.878350
+42,Personal Care Product 042,Personal Care,Cartons,2026-10-05 16:14:47.878350
+43,Home Care Product 043,Home Care,Cases,2026-10-05 16:14:47.878350
+44,Food Product 044,Food,Cases,2026-10-05 16:14:47.878350
+45,Beverages Product 045,Beverages,Cartons,2026-10-05 16:14:47.878350
+46,Beverages Product 046,Beverages,Pallets,2026-10-05 16:14:47.878350
+47,Food Product 047,Food,Pallets,2026-10-05 16:14:47.878350
+48,Food Product 048,Food,Cases,2026-10-05 16:14:47.878350
+49,Beverages Product 049,Beverages,Pallets,2026-10-05 16:14:47.878350
+50,Beverages Product 050,Beverages,Cases,2026-10-05 16:14:47.878350

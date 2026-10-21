@@ -1,0 +1,156 @@
+version: 2
+
+models:
+
+  - name: stg_loads
+    columns:
+      - name: load_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: customer_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id
+
+      - name: vehicle_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_vehicles')
+              field: vehicle_id
+
+      - name: driver_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_drivers')
+              field: driver_id
+
+      - name: warehouse_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_warehouses')
+              field: warehouse_id
+
+      - name: destination_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_destinations')
+              field: destination_id
+
+      - name: officer_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_loading_officers')
+              field: officer_id
+
+      - name: status
+        data_tests:
+          - accepted_values:
+              values:
+                - Delivered
+                - In Transit
+                - Pending
+                - Cancelled
+
+  - name: stg_load_items
+    columns:
+      - name: load_item_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: load_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_loads')
+              field: load_id
+
+      - name: product_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
+
+      - name: quantity
+        data_tests:
+          - not_null
+
+  - name: stg_deliveries
+    columns:
+      - name: delivery_id
+        data_tests:
+          - unique
+          - not_null
+
+      - name: load_id
+        data_tests:
+          - not_null
+          - relationships:
+              to: ref('stg_loads')
+              field: load_id
+
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_products
+    columns:
+      - name: product_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_vehicles
+    columns:
+      - name: vehicle_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_drivers
+    columns:
+      - name: driver_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_warehouses
+    columns:
+      - name: warehouse_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_destinations
+    columns:
+      - name: destination_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_loading_officers
+    columns:
+      - name: officer_id
+        data_tests:
+          - unique
+          - not_null
+
+  - name: stg_cancellation_reasons
+    columns:
+      - name: cancellation_reason_id
+        data_tests:
+          - unique
+          - not_null

@@ -1,0 +1,45 @@
+
+version: 2
+
+models:
+  - name: mart_delivery_performance_by_destination
+    description: "Delivery performance and delays by destination and region."
+    columns:
+      - name: destination_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: mart_cancellation_analysis
+    description: "Cancelled loads grouped by cancellation reason and warehouse."
+    columns:
+      - name: cancellation_reason_id
+        data_tests:
+          - not_null
+      - name: warehouse_id
+        data_tests:
+          - not_null
+
+  - name: mart_warehouse_efficiency
+    description: "Loading duration and cancellation performance by warehouse."
+    columns:
+      - name: warehouse_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: mart_vehicle_performance
+    description: "Delivery and loading performance by individual vehicle."
+    columns:
+      - name: vehicle_id
+        data_tests:
+          - not_null
+          - unique
+
+  - name: mart_customer_performance
+    description: "Delivery, cancellation and loading performance by customer."
+    columns:
+      - name: customer_id
+        data_tests:
+          - not_null
+          - unique

@@ -1,0 +1,171 @@
+[0m08:25:46.610132 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FFE0CDE20>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FFD9BE990>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FFE779D30>]}
+
+
+============================== 08:25:46.619433 | 78678421-1f41-4e07-9f1e-0630d074e456 ==============================
+[0m08:25:46.619433 [info ] [MainThread]: Running with dbt=1.12.5
+[0m08:25:46.621430 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'maximum_seed_size_mib': '1', 'target_path': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'printer_width': '80', 'write_json': 'True', 'introspect': 'True', 'log_cache_events': 'False', 'empty': 'None', 'cache_selected_only': 'False', 'log_format': 'default', 'debug': 'False', 'fail_fast': 'False', 'partial_parse': 'True', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'profiles_dir': 'C:\\Users\\NEW USER\\.dbt', 'use_colors': 'True', 'hints_enabled': 'True', 'invocation_command': 'dbt init logiflow_dbt', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m08:25:46.685086 [info ] [MainThread]: Creating dbt configuration folder at C:\Users\NEW USER\.dbt
+[0m08:25:46.692086 [debug] [MainThread]: Starter project path: C:\Users\NEW USER\Documents\logiflow-logistics-analytics\.venv\Lib\site-packages\dbt\include\starter_project
+[0m08:25:46.747182 [info ] [MainThread]: Setting up your profile.
+[0m13:16:25.401755 [info ] [MainThread]: Profile logiflow_dbt written to C:\Users\NEW USER\.dbt\profiles.yml using target's profile_template.yml and your supplied values.
+[0m13:16:25.522302 [info ] [MainThread]: Running dbt debug to validate the project...
+[0m13:16:25.536694 [info ] [MainThread]: dbt version: 1.12.5
+[0m13:16:25.539123 [info ] [MainThread]: python version: 3.12.7
+[0m13:16:25.542634 [info ] [MainThread]: python path: C:\Users\NEW USER\Documents\logiflow-logistics-analytics\.venv\Scripts\python.exe
+[0m13:16:25.545536 [info ] [MainThread]: os info: Windows-10-10.0.19045-SP0
+[0m13:16:25.756092 [info ] [MainThread]: Using profiles dir at C:\Users\NEW USER\.dbt
+[0m13:16:25.757932 [info ] [MainThread]: Using profiles.yml file at C:\Users\NEW USER\.dbt\profiles.yml
+[0m13:16:25.759978 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\NEW USER\Documents\logiflow-logistics-analytics\logiflow_dbt\dbt_project.yml
+[0m13:16:25.767338 [info ] [MainThread]: adapter type: postgres
+[0m13:16:25.769576 [info ] [MainThread]: adapter version: 1.11.0
+[0m13:16:26.242895 [info ] [MainThread]: Configuration:
+[0m13:16:26.244764 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m13:16:26.246766 [info ] [MainThread]:   dbt_project.yml file [[32mOK found and valid[0m]
+[0m13:16:26.248028 [info ] [MainThread]: Required dependencies:
+[0m13:16:26.250504 [debug] [MainThread]: Executing "git --help"
+[0m13:16:26.501904 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m13:16:26.504947 [debug] [MainThread]: STDERR: "b''"
+[0m13:16:26.506396 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m13:16:26.508109 [info ] [MainThread]: Connection:
+[0m13:16:26.509540 [info ] [MainThread]:   host: db.wmksuqpmctleggacggyn.supabase.co
+[0m13:16:26.510980 [info ] [MainThread]:   port: 5432
+[0m13:16:26.512364 [info ] [MainThread]:   user: postgres
+[0m13:16:26.514793 [info ] [MainThread]:   database: postgres
+[0m13:16:26.516518 [info ] [MainThread]:   schema: public
+[0m13:16:26.518153 [info ] [MainThread]:   connect_timeout: 10
+[0m13:16:26.521050 [info ] [MainThread]:   role: None
+[0m13:16:26.525349 [info ] [MainThread]:   search_path: None
+[0m13:16:26.527306 [info ] [MainThread]:   keepalives_idle: 0
+[0m13:16:26.528528 [info ] [MainThread]:   sslmode: None
+[0m13:16:26.530531 [info ] [MainThread]:   sslcert: None
+[0m13:16:26.532380 [info ] [MainThread]:   sslkey: None
+[0m13:16:26.534383 [info ] [MainThread]:   sslrootcert: None
+[0m13:16:26.535282 [info ] [MainThread]:   application_name: dbt
+[0m13:16:26.537596 [info ] [MainThread]:   autocommit: False
+[0m13:16:26.543676 [info ] [MainThread]:   retries: 1
+[0m13:16:26.548003 [info ] [MainThread]: Registered adapter: postgres=1.11.0
+[0m13:16:27.668448 [debug] [MainThread]: Acquiring new postgres connection 'debug'
+[0m13:16:27.963052 [debug] [MainThread]: Using postgres connection "debug"
+[0m13:16:27.964034 [debug] [MainThread]: On debug: select 1 as id
+[0m13:16:27.964034 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m13:16:28.189666 [debug] [MainThread]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+could not translate host name "db.wmksuqpmctleggacggyn.supabase.co" to address: Name or service not known
+
+[0m13:16:28.193230 [debug] [MainThread]: Postgres adapter: Error running SQL: select 1 as id
+[0m13:16:28.195281 [debug] [MainThread]: Postgres adapter: Rolling back transaction.
+[0m13:16:28.196861 [debug] [MainThread]: On debug: No close available on handle
+[0m13:16:28.199086 [info ] [MainThread]:   Connection test: [[31mERROR[0m]
+
+[0m13:16:28.201084 [info ] [MainThread]: [31m1 check failed:[0m
+[0m13:16:28.202186 [info ] [MainThread]: dbt was unable to connect to the specified database.
+The database returned the following error:
+
+  >Database Error
+  could not translate host name "db.wmksuqpmctleggacggyn.supabase.co" to address: Name or service not known
+  
+
+Check your database credentials and try again. For more information, visit:
+https://docs.getdbt.com/docs/configure-your-profile
+
+
+[0m13:16:28.205696 [info ] [MainThread]: Your new dbt project "logiflow_dbt" was created!
+Initialized new project in C:\Users\NEW USER\Documents\logiflow-logistics-analytics\logiflow_dbt\logiflow_dbt
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m13:16:28.207489 [info ] [MainThread]: [31mYour profile may need adjustments. You can find the logs of `dbt debug` above[0m
+[0m13:16:28.219432 [debug] [MainThread]: Command `dbt init` succeeded at 13:16:28.215676 after 17446.42 seconds
+[0m13:16:28.222820 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m13:16:28.224316 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FFE3F7800>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FFE3F4D70>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000029FFE414B60>]}
+[0m13:16:28.227326 [debug] [MainThread]: Flushing usage events
+[0m13:16:30.161456 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m13:27:14.412499 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014EDA2B57C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014EDBF3EA50>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014EDBF3E450>]}
+
+
+============================== 13:27:14.419775 | c3891f35-7113-415c-b418-ed2b2e995f69 ==============================
+[0m13:27:14.419775 [info ] [MainThread]: Running with dbt=1.12.5
+[0m13:27:14.422179 [debug] [MainThread]: running dbt with arguments {'static_parser': 'True', 'no_print': 'None', 'version_check': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'target_path': 'None', 'maximum_seed_size_mib': '1', 'printer_width': '80', 'write_json': 'True', 'empty': 'None', 'log_cache_events': 'False', 'introspect': 'True', 'cache_selected_only': 'False', 'fail_fast': 'False', 'debug': 'False', 'log_format': 'default', 'profiles_dir': 'C:\\Users\\NEW USER\\.dbt', 'send_anonymous_usage_stats': 'True', 'quiet': 'False', 'warn_error': 'None', 'partial_parse': 'True', 'use_colors': 'True', 'hints_enabled': 'True', 'invocation_command': 'dbt debug', 'use_experimental_parser': 'False', 'indirect_selection': 'eager', 'log_path': 'logs'}
+[0m13:27:14.477914 [info ] [MainThread]: dbt version: 1.12.5
+[0m13:27:14.479515 [info ] [MainThread]: python version: 3.12.7
+[0m13:27:14.480628 [info ] [MainThread]: python path: C:\Users\NEW USER\Documents\logiflow-logistics-analytics\.venv\Scripts\python.exe
+[0m13:27:14.481772 [info ] [MainThread]: os info: Windows-10-10.0.19045-SP0
+[0m13:27:14.604000 [info ] [MainThread]: Using profiles dir at C:\Users\NEW USER\.dbt
+[0m13:27:14.610324 [info ] [MainThread]: Using profiles.yml file at C:\Users\NEW USER\.dbt\profiles.yml
+[0m13:27:14.611436 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\NEW USER\Documents\logiflow-logistics-analytics\dbt_project.yml
+[0m13:27:14.612440 [info ] [MainThread]: adapter type: postgres
+[0m13:27:14.613969 [info ] [MainThread]: adapter version: 1.11.0
+[0m13:27:14.615971 [info ] [MainThread]: Configuration:
+[0m13:27:14.616649 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m13:27:14.618643 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m13:27:14.619823 [info ] [MainThread]: Required dependencies:
+[0m13:27:14.621082 [debug] [MainThread]: Executing "git --help"
+[0m13:27:14.935884 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m13:27:14.936885 [debug] [MainThread]: STDERR: "b''"
+[0m13:27:14.936885 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m13:27:14.942348 [info ] [MainThread]: Connection:
+[0m13:27:14.944348 [info ] [MainThread]:   host: aws-1-eu-north-1.pooler.supabase.com
+[0m13:27:14.946276 [info ] [MainThread]:   port: 5432
+[0m13:27:14.947576 [info ] [MainThread]:   user: postgres.wmksuqpmctleggacggyn
+[0m13:27:14.949851 [info ] [MainThread]:   database: postgres
+[0m13:27:14.951294 [info ] [MainThread]:   schema: public
+[0m13:27:14.952656 [info ] [MainThread]:   connect_timeout: 10
+[0m13:27:14.955576 [info ] [MainThread]:   role: None
+[0m13:27:14.956456 [info ] [MainThread]:   search_path: None
+[0m13:27:14.957457 [info ] [MainThread]:   keepalives_idle: 0
+[0m13:27:14.959048 [info ] [MainThread]:   sslmode: require
+[0m13:27:14.960047 [info ] [MainThread]:   sslcert: None
+[0m13:27:14.960910 [info ] [MainThread]:   sslkey: None
+[0m13:27:14.962560 [info ] [MainThread]:   sslrootcert: None
+[0m13:27:14.963400 [info ] [MainThread]:   application_name: dbt
+[0m13:27:14.964399 [info ] [MainThread]:   autocommit: False
+[0m13:27:14.965403 [info ] [MainThread]:   retries: 1
+[0m13:27:14.970736 [info ] [MainThread]: Registered adapter: postgres=1.11.0
+[0m13:27:15.958578 [debug] [MainThread]: Acquiring new postgres connection 'debug'
+[0m13:27:16.091531 [debug] [MainThread]: Using postgres connection "debug"
+[0m13:27:16.091531 [debug] [MainThread]: On debug: select 1 as id
+[0m13:27:16.091531 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m13:27:18.245923 [debug] [MainThread]: Postgres adapter: Got a retryable error when attempting to open a postgres connection.
+1 attempts remaining. Retrying in 0 seconds.
+Error:
+connection to server at "aws-1-eu-north-1.pooler.supabase.com" (51.21.189.77), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+[0m13:27:19.617267 [debug] [MainThread]: Postgres adapter: Error running SQL: select 1 as id
+[0m13:27:19.619878 [debug] [MainThread]: Postgres adapter: Rolling back transaction.
+[0m13:27:19.626214 [debug] [MainThread]: On debug: No close available on handle
+[0m13:27:19.635603 [info ] [MainThread]:   Connection test: [[31mERROR[0m]
+
+[0m13:27:19.645723 [info ] [MainThread]: [31m2 checks failed:[0m
+[0m13:27:19.651653 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <C:\Users\NEW USER\Documents\logiflow-logistics-analytics\dbt_project.yml> not found
+
+[0m13:27:19.663152 [info ] [MainThread]: dbt was unable to connect to the specified database.
+The database returned the following error:
+
+  >Database Error
+  connection to server at "aws-1-eu-north-1.pooler.supabase.com" (51.21.189.77), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+  
+
+Check your database credentials and try again. For more information, visit:
+https://docs.getdbt.com/docs/configure-your-profile
+
+
+[0m13:27:19.689587 [debug] [MainThread]: Command `dbt debug` failed at 13:27:19.688359 after 5.67 seconds
+[0m13:27:19.693008 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m13:27:19.694009 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014EDA2B57C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014EDA5E84A0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000014EDA5E8530>]}
+[0m13:27:19.694009 [debug] [MainThread]: Flushing usage events
+[0m13:27:21.448860 [debug] [MainThread]: An error was encountered while trying to flush usage events

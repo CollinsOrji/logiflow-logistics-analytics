@@ -1,0 +1,6 @@
+warehouse_id,warehouse_name,location,status,created_at
+1,Lagos Central Warehouse,Lagos,Active,2026-10-05 16:14:47.882120
+2,Ibadan Regional Warehouse,Ibadan,Active,2026-10-05 16:14:47.882120
+3,Port Harcourt Warehouse,Port Harcourt,Active,2026-10-05 16:14:47.882120
+4,Abuja Distribution Centre,Abuja,Active,2026-10-05 16:14:47.882120
+5,Onitsha Distribution Centre,Onitsha,Active,2026-10-05 16:14:47.882120
