@@ -2,44 +2,405 @@
 version: 2
 
 models:
-  - name: mart_delivery_performance_by_destination
-    description: "Delivery performance and delays by destination and region."
-    columns:
-      - name: destination_id
-        data_tests:
-          - not_null
-          - unique
+  # ============================================================
+  # FACT MODELS
+  # ============================================================
 
-  - name: mart_cancellation_analysis
-    description: "Cancelled loads grouped by cancellation reason and warehouse."
+  - name: fct_loads
+    description: >
+      Load-level analytical fact model combining operational load information
+      with delivery outcomes and calculated performance fields. Supports
+      analysis of delivery status, cancellations, loading duration, and
+      delivery timeliness.
+    columns:
+      - name: load_id
+        description: Unique identifier for the logistics load.
+      - name: customer_id
+        description: Identifier of the customer associated with the load.
+      - name: vehicle_id
+        description: Identifier of the vehicle assigned to the load.
+      - name: driver_id
+        description: Identifier of the associated driver.
+      - name: warehouse_id
+        description: Identifier of the warehouse associated with the load.
+      - name: destination_id
+        description: Identifier of the intended delivery destination.
+      - name: officer_id
+        description: Identifier of the loading officer associated with the load.
+      - name: loading_start_datetime
+        description: Date and time when loading began.
+      - name: loading_end_datetime
+        description: Date and time when loading ended.
+      - name: expected_delivery_datetime
+        description: Planned date and time for delivery.
+      - name: status
+        description: Operational status recorded for the load.
+      - name: cancellation_reason_id
+        description: Identifier of the recorded cancellation reason, when applicable.
+      - name: created_at
+        description: Timestamp when the source load record was created.
+      - name: loading_duration_minutes
+        description: >
+          Elapsed time between loading start and end timestamps, expressed
+          in minutes. Null timestamps can result in a null duration.
+      - name: actual_delivery_datetime
+        description: Actual delivery timestamp from the associated delivery record.
+      - name: delivery_status
+        description: Status recorded for the associated delivery event.
+      - name: delivery_delay_hours
+        description: >
+          Difference between actual and expected delivery timestamps in
+          hours. Positive values indicate late delivery; negative values
+          indicate delivery before the expected timestamp.
+      - name: is_delivered
+        description: >
+          Integer flag equal to 1 when the load status is Delivered,
+          otherwise 0.
+      - name: is_cancelled
+        description: >
+          Integer flag equal to 1 when the load status is Cancelled,
+          otherwise 0.
+      - name: is_on_time
+        description: >
+          Integer flag equal to 1 when actual delivery is recorded and
+          is no later than the expected delivery timestamp, otherwise 0.
+
+  - name: fct_load_items
+    description: >
+      Load-item fact model representing product quantities assigned to
+      individual logistics loads. Supports product-level and load-level
+      quantity analysis.
+    columns:
+      - name: load_item_id
+        description: Unique identifier for a load-item record.
+      - name: load_id
+        description: Identifier of the logistics load containing the item.
+      - name: product_id
+        description: Identifier of the product recorded on the load.
+      - name: quantity
+        description: Recorded quantity of the product on the load.
+      - name: created_at
+        description: Timestamp when the source load-item record was created.
+
+  - name: fct_deliveries
+    description: >
+      Delivery-event fact model combining delivery records with related
+      load attributes. Includes delivery timing, operational statuses,
+      entity identifiers, delivery delay, and an on-time indicator.
+    columns:
+      - name: delivery_id
+        description: Unique identifier for a delivery record.
+      - name: load_id
+        description: Identifier of the logistics load associated with the delivery.
+      - name: customer_id
+        description: Identifier of the customer associated with the load.
+      - name: vehicle_id
+        description: Identifier of the vehicle associated with the load.
+      - name: driver_id
+        description: Identifier of the driver associated with the load.
+      - name: warehouse_id
+        description: Identifier of the warehouse associated with the load.
+      - name: destination_id
+        description: Identifier of the intended delivery destination.
+      - name: expected_delivery_datetime
+        description: Planned date and time for delivery.
+      - name: actual_delivery_datetime
+        description: Actual date and time of delivery, when recorded.
+      - name: delivery_status
+        description: Status recorded for the delivery event.
+      - name: load_status
+        description: Operational status of the associated load.
+      - name: delivery_notes
+        description: Additional notes recorded for the delivery event.
+      - name: created_at
+        description: Timestamp when the source delivery record was created.
+      - name: delivery_delay_hours
+        description: >
+          Difference between actual and expected delivery timestamps
+          in hours, when both timestamps are available.
+      - name: is_on_time
+        description: >
+          Integer flag equal to 1 when actual delivery is recorded and
+          is no later than the expected timestamp, otherwise 0.
+
+  # ============================================================
+  # DIMENSION MODELS
+  # ============================================================
+
+  - name: dim_cancellation_reasons
+    description: >
+      Cancellation-reason dimension providing descriptive labels for
+      cancellation identifiers used in operational and cancellation analysis.
     columns:
       - name: cancellation_reason_id
-        data_tests:
-          - not_null
-      - name: warehouse_id
-        data_tests:
-          - not_null
+        description: Unique identifier for a cancellation reason.
+      - name: reason
+        description: Description or business label of the cancellation reason.
+      - name: created_at
+        description: Timestamp when the cancellation-reason record was created.
 
-  - name: mart_warehouse_efficiency
-    description: "Loading duration and cancellation performance by warehouse."
-    columns:
-      - name: warehouse_id
-        data_tests:
-          - not_null
-          - unique
-
-  - name: mart_vehicle_performance
-    description: "Delivery and loading performance by individual vehicle."
-    columns:
-      - name: vehicle_id
-        data_tests:
-          - not_null
-          - unique
-
-  - name: mart_customer_performance
-    description: "Delivery, cancellation and loading performance by customer."
+  - name: dim_customers
+    description: >
+      Customer dimension providing customer identifiers and descriptive
+      attributes for customer-level logistics and performance reporting.
     columns:
       - name: customer_id
+        description: Unique identifier for a customer.
+      - name: customer_name
+        description: Name or business label associated with the customer.
+      - name: customer_type
+        description: Recorded classification of the customer.
+      - name: created_at
+        description: Timestamp when the customer record was created.
+
+  - name: dim_destinations
+    description: >
+      Destination dimension containing descriptive information about
+      delivery destinations and their geographic regions.
+    columns:
+      - name: destination_id
+        description: Unique identifier for a delivery destination.
+      - name: destination_name
+        description: Name or label associated with the destination.
+      - name: region
+        description: Geographic region recorded for the destination.
+      - name: created_at
+        description: Timestamp when the destination record was created.
+
+  - name: dim_drivers
+    description: >
+      Driver dimension providing descriptive driver attributes for
+      load-level analysis and operational reporting.
+    columns:
+      - name: driver_id
+        description: Unique identifier for a driver.
+      - name: driver_name
+        description: Name recorded for the driver.
+      - name: phone_number
+        description: Recorded contact telephone number for the driver.
+      - name: created_at
+        description: Timestamp when the driver record was created.
+
+  - name: dim_loading_officers
+    description: >
+      Loading-officer dimension describing personnel associated with
+      loading operations, including their warehouse association.
+    columns:
+      - name: officer_id
+        description: Unique identifier for a loading officer.
+      - name: officer_name
+        description: Name recorded for the loading officer.
+      - name: warehouse_id
+        description: Identifier of the warehouse associated with the officer.
+      - name: created_at
+        description: Timestamp when the loading-officer record was created.
+
+  - name: dim_products
+    description: >
+      Product dimension providing descriptive product attributes for
+      load-item analysis and product-level operational reporting.
+    columns:
+      - name: product_id
+        description: Unique identifier for a product.
+      - name: product_name
+        description: Name or description of the product.
+      - name: product_category
+        description: Recorded product category.
+      - name: unit_of_measure
+        description: Unit used to express the product quantity.
+      - name: created_at
+        description: Timestamp when the product record was created.
+
+  - name: dim_vehicles
+    description: >
+      Vehicle dimension containing fleet identifiers and descriptive
+      attributes used for vehicle-level performance reporting.
+    columns:
+      - name: vehicle_id
+        description: Unique identifier for a vehicle.
+      - name: vehicle_registration
+        description: Registration identifier recorded for the vehicle.
+      - name: vehicle_type
+        description: Recorded classification or type of vehicle.
+      - name: capacity
+        description: Recorded carrying capacity of the vehicle.
+      - name: status
+        description: Operational status recorded for the vehicle.
+      - name: created_at
+        description: Timestamp when the vehicle record was created.
+
+  - name: dim_warehouses
+    description: >
+      Warehouse dimension describing warehouse identifiers, names, and
+      locations for warehouse-level operational performance reporting.
+    columns:
+      - name: warehouse_id
+        description: Unique identifier for a warehouse.
+      - name: warehouse_name
+        description: Name or business label associated with the warehouse.
+      - name: location
+        description: Recorded location of the warehouse.
+      - name: created_at
+        description: Timestamp when the warehouse record was created.
+
+  # ============================================================
+  # REPORTING MARTS
+  # ============================================================
+
+  - name: mart_delivery_performance_by_destination
+    description: >
+      Destination-level reporting mart summarizing load volume, deliveries,
+      cancellations, on-time delivery performance, and average delivery
+      delay by destination and region.
+    columns:
+      - name: destination_id
+        description: Unique identifier for the destination in this mart.
         data_tests:
           - not_null
           - unique
+      - name: destination_name
+        description: Name of the delivery destination.
+      - name: region
+        description: Geographic region associated with the destination.
+      - name: total_loads
+        description: Total number of loads associated with the destination.
+      - name: delivered_loads
+        description: Number of loads whose status is Delivered.
+      - name: cancelled_loads
+        description: Number of loads whose status is Cancelled.
+      - name: completed_deliveries
+        description: >
+          Number of delivered loads with an actual delivery timestamp
+          recorded.
+      - name: on_time_deliveries
+        description: Number of loads whose on-time indicator equals 1.
+      - name: on_time_delivery_rate_pct
+        description: >
+          On-time deliveries as a percentage of completed deliveries,
+          rounded to two decimal places.
+      - name: avg_delivery_delay_hours
+        description: Average recorded delivery delay in hours, rounded to two decimals.
+
+  - name: mart_cancellation_analysis
+    description: >
+      Cancellation reporting mart grouped by cancellation reason and
+      warehouse. Quantifies cancellation volume and each group's share
+      of all cancellations.
+    columns:
+      - name: cancellation_reason_id
+        description: Identifier of the cancellation reason.
+        data_tests:
+          - not_null
+      - name: cancellation_reason
+        description: Descriptive label of the cancellation reason.
+      - name: warehouse_id
+        description: Identifier of the warehouse associated with the cancelled load.
+        data_tests:
+          - not_null
+      - name: warehouse_name
+        description: Name of the associated warehouse.
+      - name: cancelled_loads
+        description: Number of cancelled loads in the reason-and-warehouse group.
+      - name: pct_of_all_cancellations
+        description: >
+          Percentage of all recorded cancellations represented by the group,
+          rounded to two decimal places.
+
+  - name: mart_warehouse_efficiency
+    description: >
+      Warehouse-level reporting mart summarizing load volume, deliveries,
+      cancellations, cancellation rate, and average loading duration.
+    columns:
+      - name: warehouse_id
+        description: Unique identifier for the warehouse in this mart.
+        data_tests:
+          - not_null
+          - unique
+      - name: warehouse_name
+        description: Name of the warehouse.
+      - name: warehouse_location
+        description: Recorded location of the warehouse.
+      - name: total_loads
+        description: Number of loads associated with the warehouse.
+      - name: delivered_loads
+        description: Number of loads whose status is Delivered.
+      - name: cancelled_loads
+        description: Number of loads whose status is Cancelled.
+      - name: cancellation_rate_pct
+        description: >
+          Cancelled loads as a percentage of total loads for the warehouse,
+          rounded to two decimal places.
+      - name: avg_loading_duration_minutes
+        description: >
+          Average loading duration in minutes for loads associated with
+          the warehouse, rounded to two decimal places.
+
+  - name: mart_vehicle_performance
+    description: >
+      Vehicle-level reporting mart summarizing load volume, delivery and
+      cancellation counts, on-time deliveries, on-time delivery rate, and
+      average loading duration.
+    columns:
+      - name: vehicle_id
+        description: Unique identifier for the vehicle in this mart.
+        data_tests:
+          - not_null
+          - unique
+      - name: vehicle_registration
+        description: Vehicle registration identifier.
+      - name: vehicle_type
+        description: Recorded vehicle classification.
+      - name: capacity
+        description: Recorded carrying capacity of the vehicle.
+      - name: vehicle_status
+        description: Operational status recorded for the vehicle.
+      - name: total_loads
+        description: Number of loads associated with the vehicle.
+      - name: delivered_loads
+        description: Number of loads whose status is Delivered.
+      - name: cancelled_loads
+        description: Number of loads whose status is Cancelled.
+      - name: on_time_deliveries
+        description: Number of loads whose on-time indicator equals 1.
+      - name: on_time_delivery_rate_pct
+        description: >
+          On-time deliveries as a percentage of completed deliveries
+          associated with the vehicle, rounded to two decimal places.
+      - name: avg_loading_duration_minutes
+        description: >
+          Average loading duration in minutes for loads associated with
+          the vehicle, rounded to two decimal places.
+
+  - name: mart_customer_performance
+    description: >
+      Customer-level reporting mart summarizing load volume, delivery and
+      cancellation performance, on-time delivery rate, and average loading
+      duration. Customers without load records are retained with zero counts.
+    columns:
+      - name: customer_id
+        description: Unique identifier for the customer in this mart.
+        data_tests:
+          - not_null
+          - unique
+      - name: customer_name
+        description: Name or business label of the customer.
+      - name: customer_type
+        description: Recorded classification of the customer.
+      - name: total_loads
+        description: Number of loads associated with the customer, defaulting to zero.
+      - name: delivered_loads
+        description: Number of loads whose status is Delivered, defaulting to zero.
+      - name: cancelled_loads
+        description: Number of loads whose status is Cancelled, defaulting to zero.
+      - name: cancellation_rate_pct
+        description: >
+          Cancelled loads as a percentage of total loads for the customer,
+          rounded to two decimal places.
+      - name: on_time_delivery_rate_pct
+        description: >
+          On-time deliveries as a percentage of completed deliveries
+          associated with the customer, rounded to two decimal places.
+      - name: avg_loading_duration_minutes
+        description: >
+          Average loading duration in minutes for the customer's loads,
+          rounded to two decimal places.

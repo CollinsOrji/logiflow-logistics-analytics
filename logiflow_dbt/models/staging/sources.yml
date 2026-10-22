@@ -1,17 +1,199 @@
+
 version: 2
 
 sources:
   - name: logiflow
+    description: >
+      Raw operational source tables for the LogiFlow logistics analytics
+      project. These PostgreSQL tables represent logistics entities and
+      transactions before transformation by dbt. The project uses synthetic
+      data for demonstration and portfolio purposes.
     schema: public
+
     tables:
       - name: destinations
+        description: >
+          Reference records for delivery destinations, including destination
+          names and regions. Used to group and compare delivery performance
+          geographically.
+        columns:
+          - name: destination_id
+            description: Unique identifier for a delivery destination.
+          - name: destination_name
+            description: Business name or label of the delivery destination.
+          - name: region
+            description: Geographic region associated with the destination.
+          - name: created_at
+            description: Timestamp when the destination record was created.
+
       - name: customers
+        description: >
+          Customer reference records used to associate logistics loads with
+          customers and analyze customer-level operational performance.
+        columns:
+          - name: customer_id
+            description: Unique identifier for a customer.
+          - name: customer_name
+            description: Name or business label of the customer.
+          - name: customer_type
+            description: Classification of the customer.
+          - name: created_at
+            description: Timestamp when the customer record was created.
+
       - name: products
+        description: >
+          Product reference records used to identify the goods assigned to
+          logistics loads and analyze load-item quantities.
+        columns:
+          - name: product_id
+            description: Unique identifier for a product.
+          - name: product_name
+            description: Name or description of the product.
+          - name: product_category
+            description: Category assigned to the product.
+          - name: unit_of_measure
+            description: Unit used to express the product quantity.
+          - name: created_at
+            description: Timestamp when the product record was created.
+
       - name: vehicles
+        description: >
+          Fleet reference records containing vehicle identifiers,
+          registrations, types, capacities, and operational statuses.
+        columns:
+          - name: vehicle_id
+            description: Unique identifier for a vehicle.
+          - name: vehicle_registration
+            description: Registration identifier assigned to the vehicle.
+          - name: vehicle_type
+            description: Classification or type of vehicle.
+          - name: capacity
+            description: Recorded carrying capacity of the vehicle.
+          - name: status
+            description: Operational status recorded for the vehicle.
+          - name: created_at
+            description: Timestamp when the vehicle record was created.
+
       - name: drivers
+        description: >
+          Driver reference records used to associate loads with the
+          responsible driver and support driver-related operational analysis.
+        columns:
+          - name: driver_id
+            description: Unique identifier for a driver.
+          - name: driver_name
+            description: Name of the driver.
+          - name: phone_number
+            description: Recorded contact telephone number for the driver.
+          - name: created_at
+            description: Timestamp when the driver record was created.
+
       - name: warehouses
+        description: >
+          Warehouse reference records used to associate loads with their
+          originating warehouse and compare warehouse-level performance.
+        columns:
+          - name: warehouse_id
+            description: Unique identifier for a warehouse.
+          - name: warehouse_name
+            description: Name or business label of the warehouse.
+          - name: location
+            description: Recorded location of the warehouse.
+          - name: created_at
+            description: Timestamp when the warehouse record was created.
+
       - name: loading_officers
+        description: >
+          Records of personnel responsible for loading operations, including
+          their warehouse association.
+        columns:
+          - name: officer_id
+            description: Unique identifier for a loading officer.
+          - name: officer_name
+            description: Name of the loading officer.
+          - name: warehouse_id
+            description: Identifier of the warehouse associated with the officer.
+          - name: created_at
+            description: Timestamp when the loading officer record was created.
+
       - name: cancellation_reasons
+        description: >
+          Reference list of reasons used to classify cancelled logistics loads.
+          Supports consistent cancellation analysis across the project.
+        columns:
+          - name: cancellation_reason_id
+            description: Unique identifier for a cancellation reason.
+          - name: reason
+            description: Description or label of the cancellation reason.
+          - name: created_at
+            description: Timestamp when the cancellation-reason record was created.
+
       - name: loads
+        description: >
+          Primary operational records for logistics loads. Contains entity
+          references, loading timestamps, expected delivery time, load status,
+          cancellation reason, and record creation timestamp.
+        columns:
+          - name: load_id
+            description: Unique identifier for a logistics load.
+          - name: customer_id
+            description: Customer associated with the load.
+          - name: vehicle_id
+            description: Vehicle assigned to the load.
+          - name: driver_id
+            description: Driver associated with the load.
+          - name: warehouse_id
+            description: Warehouse associated with the load.
+          - name: destination_id
+            description: Intended delivery destination for the load.
+          - name: officer_id
+            description: Loading officer associated with the load.
+          - name: loading_start_datetime
+            description: Date and time when loading began.
+          - name: loading_end_datetime
+            description: Date and time when loading ended.
+          - name: expected_delivery_datetime
+            description: Planned date and time for delivery.
+          - name: status
+            description: >
+              Operational status of the load. The staging model tests
+              Delivered, In Transit, Pending, and Cancelled as accepted values.
+          - name: cancellation_reason_id
+            description: >
+              Reference to the reason for cancellation when one is recorded.
+          - name: created_at
+            description: Timestamp when the load record was created.
+
       - name: load_items
+        description: >
+          Detail records connecting individual products and quantities to
+          logistics loads. Supports product-level and quantity analysis.
+        columns:
+          - name: load_item_id
+            description: Unique identifier for a load-item record.
+          - name: load_id
+            description: Load to which the item belongs.
+          - name: product_id
+            description: Product associated with the load-item record.
+          - name: quantity
+            description: Recorded quantity of the product in the load.
+          - name: created_at
+            description: Timestamp when the load-item record was created.
+
       - name: deliveries
+        description: >
+          Delivery outcome records associated with logistics loads, including
+          actual delivery timestamps, delivery status, and operational notes.
+        columns:
+          - name: delivery_id
+            description: Unique identifier for a delivery record.
+          - name: load_id
+            description: Load associated with the delivery record.
+          - name: actual_delivery_datetime
+            description: Actual date and time of delivery when recorded.
+          - name: delivery_status
+            description: Status recorded for the delivery event.
+          - name: delivery_notes
+            description: Additional notes captured for the delivery.
+          - name: created_at
+            description: Timestamp when the delivery record was created.

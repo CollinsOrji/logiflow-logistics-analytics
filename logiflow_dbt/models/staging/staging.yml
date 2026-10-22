@@ -1,156 +1,332 @@
+
 version: 2
 
 models:
-
   - name: stg_loads
+    description: >
+      Staging model for logistics load records. Retains operational
+      identifiers, loading timestamps, expected delivery timestamps,
+      status, and cancellation details for downstream analytical models.
     columns:
       - name: load_id
+        description: Unique identifier for a logistics load.
         data_tests:
           - unique
           - not_null
 
       - name: customer_id
+        description: Identifier of the customer associated with the load.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_customers')
-              field: customer_id
+              arguments:
+                to: ref('stg_customers')
+                field: customer_id
 
       - name: vehicle_id
+        description: Identifier of the vehicle assigned to the load.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_vehicles')
-              field: vehicle_id
+              arguments:
+                to: ref('stg_vehicles')
+                field: vehicle_id
 
       - name: driver_id
+        description: Identifier of the driver associated with the load.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_drivers')
-              field: driver_id
+              arguments:
+                to: ref('stg_drivers')
+                field: driver_id
 
       - name: warehouse_id
+        description: Identifier of the warehouse associated with the load.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_warehouses')
-              field: warehouse_id
+              arguments:
+                to: ref('stg_warehouses')
+                field: warehouse_id
 
       - name: destination_id
+        description: Identifier of the intended delivery destination.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_destinations')
-              field: destination_id
+              arguments:
+                to: ref('stg_destinations')
+                field: destination_id
 
       - name: officer_id
+        description: Identifier of the loading officer associated with the load.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_loading_officers')
-              field: officer_id
+              arguments:
+                to: ref('stg_loading_officers')
+                field: officer_id
+
+      - name: loading_start_datetime
+        description: Date and time when loading began.
+
+      - name: loading_end_datetime
+        description: Date and time when loading ended.
+
+      - name: expected_delivery_datetime
+        description: Planned date and time for delivery.
 
       - name: status
+        description: >
+          Operational status recorded for the load.
+          Accepted values are Delivered, In Transit, Pending, and Cancelled.
         data_tests:
           - accepted_values:
-              values:
-                - Delivered
-                - In Transit
-                - Pending
-                - Cancelled
+              arguments:
+                values:
+                  - Delivered
+                  - In Transit
+                  - Pending
+                  - Cancelled
+
+      - name: cancellation_reason_id
+        description: Identifier of the recorded cancellation reason, when applicable.
+
+      - name: created_at
+        description: Timestamp when the source load record was created.
 
   - name: stg_load_items
+    description: >
+      Staging model for load-item records, connecting individual products
+      and their quantities to logistics loads.
     columns:
       - name: load_item_id
+        description: Unique identifier for a load-item record.
         data_tests:
           - unique
           - not_null
 
       - name: load_id
+        description: Identifier of the load containing the item.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_loads')
-              field: load_id
+              arguments:
+                to: ref('stg_loads')
+                field: load_id
 
       - name: product_id
+        description: Identifier of the product recorded on the load.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_products')
-              field: product_id
+              arguments:
+                to: ref('stg_products')
+                field: product_id
 
       - name: quantity
+        description: Recorded quantity of the product on the load.
         data_tests:
           - not_null
 
+      - name: created_at
+        description: Timestamp when the load-item record was created.
+
   - name: stg_deliveries
+    description: >
+      Staging model for delivery events, connecting delivery outcomes and
+      actual delivery timestamps to their associated logistics loads.
     columns:
       - name: delivery_id
+        description: Unique identifier for a delivery record.
         data_tests:
           - unique
           - not_null
 
       - name: load_id
+        description: Identifier of the load associated with the delivery.
         data_tests:
           - not_null
           - relationships:
-              to: ref('stg_loads')
-              field: load_id
+              arguments:
+                to: ref('stg_loads')
+                field: load_id
+
+      - name: actual_delivery_datetime
+        description: Actual date and time of delivery, when recorded.
+
+      - name: delivery_status
+        description: Status recorded for the delivery event.
+
+      - name: delivery_notes
+        description: Additional operational notes associated with the delivery.
+
+      - name: created_at
+        description: Timestamp when the delivery record was created.
 
   - name: stg_customers
+    description: >
+      Staging model for customer reference data used to analyze load volume,
+      delivery outcomes, and customer-level operational performance.
     columns:
       - name: customer_id
+        description: Unique identifier for a customer.
         data_tests:
           - unique
           - not_null
+
+      - name: customer_name
+        description: Name or business label associated with the customer.
+
+      - name: customer_type
+        description: Recorded classification of the customer.
+
+      - name: created_at
+        description: Timestamp when the customer record was created.
 
   - name: stg_products
+    description: >
+      Staging model for product reference data used to identify goods
+      recorded in logistics loads and analyze product quantities.
     columns:
       - name: product_id
+        description: Unique identifier for a product.
         data_tests:
           - unique
           - not_null
+
+      - name: product_name
+        description: Name or description of the product.
+
+      - name: product_category
+        description: Recorded category of the product.
+
+      - name: unit_of_measure
+        description: Unit used to express the product quantity.
+
+      - name: created_at
+        description: Timestamp when the product record was created.
 
   - name: stg_vehicles
+    description: >
+      Staging model for vehicle reference data used in fleet reporting
+      and load-level operational analysis.
     columns:
       - name: vehicle_id
+        description: Unique identifier for a vehicle.
         data_tests:
           - unique
           - not_null
+
+      - name: vehicle_registration
+        description: Registration identifier recorded for the vehicle.
+
+      - name: vehicle_type
+        description: Recorded classification or type of vehicle.
+
+      - name: capacity
+        description: Recorded carrying capacity of the vehicle.
+
+      - name: status
+        description: Operational status recorded for the vehicle.
+
+      - name: created_at
+        description: Timestamp when the vehicle record was created.
 
   - name: stg_drivers
+    description: >
+      Staging model for driver reference data used to associate drivers
+      with logistics loads and support driver-related reporting.
     columns:
       - name: driver_id
+        description: Unique identifier for a driver.
         data_tests:
           - unique
           - not_null
+
+      - name: driver_name
+        description: Name recorded for the driver.
+
+      - name: phone_number
+        description: Recorded contact telephone number for the driver.
+
+      - name: created_at
+        description: Timestamp when the driver record was created.
 
   - name: stg_warehouses
+    description: >
+      Staging model for warehouse reference data used to identify load
+      origins and support warehouse-level performance analysis.
     columns:
       - name: warehouse_id
+        description: Unique identifier for a warehouse.
         data_tests:
           - unique
           - not_null
+
+      - name: warehouse_name
+        description: Name or business label associated with the warehouse.
+
+      - name: location
+        description: Recorded location of the warehouse.
+
+      - name: created_at
+        description: Timestamp when the warehouse record was created.
 
   - name: stg_destinations
+    description: >
+      Staging model for delivery destination reference data used to group
+      loads and analyze delivery performance across destinations and regions.
     columns:
       - name: destination_id
+        description: Unique identifier for a delivery destination.
         data_tests:
           - unique
           - not_null
+
+      - name: destination_name
+        description: Name or label associated with the delivery destination.
+
+      - name: region
+        description: Recorded geographic region of the destination.
+
+      - name: created_at
+        description: Timestamp when the destination record was created.
 
   - name: stg_loading_officers
+    description: >
+      Staging model for loading officer reference data used to identify
+      personnel associated with loading operations.
     columns:
       - name: officer_id
+        description: Unique identifier for a loading officer.
         data_tests:
           - unique
           - not_null
 
+      - name: officer_name
+        description: Name recorded for the loading officer.
+
+      - name: warehouse_id
+        description: Identifier of the warehouse associated with the officer.
+
+      - name: created_at
+        description: Timestamp when the loading officer record was created.
+
   - name: stg_cancellation_reasons
+    description: >
+      Staging model for cancellation-reason reference data used to classify
+      cancelled loads and support consistent cancellation reporting.
     columns:
       - name: cancellation_reason_id
+        description: Unique identifier for a cancellation reason.
         data_tests:
           - unique
           - not_null
+
+      - name: reason
+        description: Description or label of the cancellation reason.
+
+      - name: created_at
+        description: Timestamp when the cancellation-reason record was created.
